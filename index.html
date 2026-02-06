@@ -276,11 +276,12 @@ body::after {
 .hero-title {
   font-family: var(--font-serif);
   font-weight: 900;
-  font-size: clamp(3rem, 10vw, 7rem);
+  font-size: clamp(2.2rem, 8.5vw, 7rem);
   color: var(--cream);
   line-height: 1.1;
   letter-spacing: 0.05em;
   margin-bottom: 0.3em;
+  white-space: nowrap;
   opacity: 0;
   animation: fadeUp 1s 0.5s forwards;
 }
@@ -839,6 +840,62 @@ body::after {
 }
 
 /* ============================================
+   Lightbox
+   ============================================ */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.92);
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+  animation: lbFadeIn 0.3s ease;
+}
+
+.lightbox.active {
+  display: flex;
+}
+
+.lightbox img {
+  max-width: 92vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.5rem;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: none;
+  color: var(--cream);
+  font-size: 2rem;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+  line-height: 1;
+}
+
+.lightbox-close:hover {
+  opacity: 1;
+}
+
+@keyframes lbFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.gallery-item {
+  cursor: zoom-in;
+}
+
+/* ============================================
    Links Section
    ============================================ */
 .links {
@@ -1074,7 +1131,7 @@ body::after {
     <div class="donation-cards">
       <div class="donation-card fade-in-left">
         <h3>育て上げネット</h3>
-        <div class="donation-amount">不良米 15kg</div>
+        <div class="donation-amount">不良米 15kg ＋ 追加購入分 30kg（計45kg）</div>
         <div class="donation-target">▶ 少年院を出て社会で奮闘する若者へ</div>
         <p class="donation-desc">
           若者支援を行う認定NPO法人。就労支援や少年院への学習支援、出院後の食料支援などを実施しています。
@@ -1160,7 +1217,15 @@ body::after {
       <div class="timeline-content">
         <div class="timeline-date">2025.12</div>
         <div class="timeline-title">寄贈完了</div>
-        <p class="timeline-desc">育て上げネット・ami seedへ届け完了。不良米が、誰かの食卓へ届いた。</p>
+        <p class="timeline-desc">育て上げネット・ami seedへ届け完了。</p>
+      </div>
+    </div>
+    <div class="timeline-item fade-in">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <div class="timeline-date">2026.01</div>
+        <div class="timeline-title">育て上げネットから若者たちへ発送</div>
+        <p class="timeline-desc">不良米が、誰かの食卓へ届いた。</p>
       </div>
     </div>
   </div>
@@ -1257,6 +1322,12 @@ body::after {
     </div>
   </div>
 </section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" aria-label="閉じる">&times;</button>
+  <img src="" alt="">
+</div>
 
 <!-- ============================================
      Footer
@@ -1373,6 +1444,30 @@ body::after {
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
+  });
+
+  // --- Lightbox for gallery ---
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = lightbox.querySelector('img');
+
+  document.querySelectorAll('.gallery-item img').forEach(img => {
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  lightbox.addEventListener('click', closeLightbox);
+  lightbox.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLightbox();
   });
 
 })();
