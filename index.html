@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>不良米プロジェクト｜活動報告</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@500;700;900&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   CSS Variables & Reset
+   ============================================ */
+:root {
+  --earth-dark: #2C2416;
+  --earth-mid: #4A3928;
+  --earth-warm: #6B5340;
+  --gold: #C8A35F;
+  --gold-light: #DBBF82;
+  --gold-pale: #E8D5A8;
+  --cream: #F7F2E8;
+  --cream-dark: #EDE5D5;
+  --green-deep: #3D5A3A;
+  --green-soft: #6B8F68;
+  --green-pale: #A8C5A5;
+  --red-accent: #A0422A;
+  --text-primary: #2C2416;
+  --text-secondary: #6B5340;
+  --text-light: #F7F2E8;
+  --font-serif: 'Noto Serif JP', serif;
+  --font-sans: 'Noto Sans JP', sans-serif;
+  --font-gothic: 'Zen Kaku Gothic New', sans-serif;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--cream);
+  color: var(--text-primary);
+  line-height: 1.8;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--gold);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: var(--gold-light);
+}
+
+/* ============================================
+   Utility & Animation
+   ============================================ */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-in-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.fade-in-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.section-label {
+  font-family: var(--font-gothic);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-weight: 900;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  line-height: 1.4;
+  margin-bottom: 1.5rem;
+  color: var(--earth-dark);
+}
+
+/* ============================================
+   Grain Overlay
+   ============================================ */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* ============================================
+   Navigation
+   ============================================ */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.4s, box-shadow 0.4s;
+}
+
+.nav.scrolled {
+  background: rgba(44, 36, 22, 0.95);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.15);
+  backdrop-filter: blur(10px);
+}
+
+.nav-logo {
+  font-family: var(--font-serif);
+  font-weight: 900;
+  font-size: 1.1rem;
+  color: var(--cream);
+  letter-spacing: 0.05em;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--font-gothic);
+  font-size: 0.8rem;
+  color: var(--cream);
+  opacity: 0.7;
+  transition: opacity 0.3s;
+  letter-spacing: 0.05em;
+}
+
+.nav-links a:hover {
+  opacity: 1;
+  color: var(--cream);
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav { padding: 0.8rem 1.2rem; }
+}
+
+/* ============================================
+   Hero Section
+   ============================================ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--earth-dark);
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 80%, rgba(200, 163, 95, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(61, 90, 58, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(74, 57, 40, 0.3) 0%, transparent 70%);
+}
+
+/* Animated rice stalks */
+.hero-stalks {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  overflow: hidden;
+  opacity: 0.12;
+}
+
+.stalk {
+  position: absolute;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to top, var(--gold), transparent);
+  transform-origin: bottom center;
+  animation: sway 4s ease-in-out infinite;
+}
+
+.stalk::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -4px;
+  width: 10px;
+  height: 10px;
+  background: var(--gold);
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+  max-width: 800px;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-gothic);
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 1s 0.3s forwards;
+}
+
+.hero-title {
+  font-family: var(--font-serif);
+  font-weight: 900;
+  font-size: clamp(3rem, 10vw, 7rem);
+  color: var(--cream);
+  line-height: 1.1;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.3em;
+  opacity: 0;
+  animation: fadeUp 1s 0.5s forwards;
+}
+
+.hero-title .accent {
+  color: var(--gold);
+  display: inline-block;
+  position: relative;
+}
+
+.hero-subtitle {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  color: var(--gold-pale);
+  line-height: 1.8;
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeUp 1s 0.7s forwards;
+}
+
+.hero-tagline {
+  font-family: var(--font-gothic);
+  font-size: 0.85rem;
+  color: var(--cream);
+  opacity: 0;
+  animation: fadeUp 1s 0.9s forwards;
+  letter-spacing: 0.1em;
+}
+
+.hero-tagline span {
+  display: inline-block;
+  padding: 0.4em 1.2em;
+  border: 1px solid rgba(200, 163, 95, 0.4);
+  border-radius: 2px;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  animation: fadeUp 1s 1.2s forwards;
+}
+
+.hero-scroll span {
+  font-family: var(--font-gothic);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+}
+
+.hero-scroll .line {
+  width: 1px;
+  height: 40px;
+  background: var(--gold);
+  animation: scrollLine 2s ease-in-out infinite;
+}
+
+@keyframes scrollLine {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* ============================================
+   Thank You Message
+   ============================================ */
+.thanks {
+  padding: 6rem 2rem;
+  text-align: center;
+  background: var(--cream);
+  position: relative;
+}
+
+.thanks-inner {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.thanks-deco {
+  font-family: var(--font-serif);
+  font-size: 3rem;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.thanks-message {
+  font-family: var(--font-serif);
+  font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+  font-weight: 500;
+  line-height: 2.2;
+  color: var(--earth-mid);
+}
+
+.thanks-message strong {
+  color: var(--earth-dark);
+  font-weight: 700;
+}
+
+.thanks-sign {
+  margin-top: 2.5rem;
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  color: var(--earth-warm);
+}
+
+/* ============================================
+   Crowdfunding Results
+   ============================================ */
+.results {
+  padding: 5rem 2rem;
+  background: var(--earth-dark);
+  color: var(--cream);
+  position: relative;
+  overflow: hidden;
+}
+
+.results::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 60%;
+  height: 200%;
+  background: radial-gradient(ellipse, rgba(200, 163, 95, 0.06) 0%, transparent 70%);
+}
+
+.results-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.results .section-label {
+  text-align: center;
+}
+
+.results .section-title {
+  color: var(--cream);
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+@media (max-width: 600px) {
+  .results-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.result-card {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  border: 1px solid rgba(200, 163, 95, 0.2);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+
+.result-card:hover {
+  border-color: rgba(200, 163, 95, 0.5);
+}
+
+.result-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transition: transform 0.6s ease;
+}
+
+.result-card.visible::before {
+  transform: scaleX(1);
+}
+
+.result-number {
+  font-family: var(--font-serif);
+  font-weight: 900;
+  font-size: clamp(2.4rem, 5vw, 3.2rem);
+  color: var(--gold);
+  line-height: 1.2;
+  margin-bottom: 0.3rem;
+}
+
+.result-unit {
+  font-size: 0.5em;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.result-label {
+  font-family: var(--font-gothic);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  color: var(--gold-pale);
+  opacity: 0.8;
+}
+
+.result-note {
+  text-align: center;
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  color: var(--gold-pale);
+  opacity: 0.7;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ============================================
+   Donation Report
+   ============================================ */
+.donation {
+  padding: 6rem 2rem;
+  background: var(--cream);
+}
+
+.donation-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.donation .section-label,
+.donation .section-title {
+  text-align: center;
+}
+
+.donation-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 700px) {
+  .donation-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+.donation-card {
+  background: #fff;
+  border-radius: 6px;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 4px 20px rgba(44, 36, 22, 0.06);
+  border-left: 4px solid var(--gold);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.donation-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(44, 36, 22, 0.1);
+}
+
+.donation-card h3 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin-bottom: 0.8rem;
+  color: var(--earth-dark);
+}
+
+.donation-amount {
+  display: inline-block;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--gold);
+  background: rgba(200, 163, 95, 0.1);
+  padding: 0.3rem 0.8rem;
+  border-radius: 3px;
+  margin-bottom: 1rem;
+}
+
+.donation-target {
+  font-family: var(--font-gothic);
+  font-size: 0.8rem;
+  color: var(--green-deep);
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.05em;
+}
+
+.donation-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* ============================================
+   Timeline
+   ============================================ */
+.timeline-section {
+  padding: 6rem 2rem;
+  background: linear-gradient(180deg, var(--cream-dark) 0%, var(--cream) 100%);
+}
+
+.timeline-section .section-label,
+.timeline-section .section-title {
+  text-align: center;
+}
+
+.timeline {
+  max-width: 800px;
+  margin: 2rem auto 0;
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--gold), var(--green-soft), var(--gold));
+  opacity: 0.3;
+}
+
+@media (max-width: 768px) {
+  .timeline::before {
+    left: 1.5rem;
+  }
+}
+
+.timeline-item {
+  position: relative;
+  padding: 1.5rem 0;
+  display: flex;
+  align-items: flex-start;
+}
+
+.timeline-item:nth-child(odd) {
+  flex-direction: row;
+  padding-right: calc(50% + 2rem);
+  text-align: right;
+}
+
+.timeline-item:nth-child(even) {
+  flex-direction: row-reverse;
+  padding-left: calc(50% + 2rem);
+  text-align: left;
+}
+
+@media (max-width: 768px) {
+  .timeline-item:nth-child(odd),
+  .timeline-item:nth-child(even) {
+    flex-direction: row;
+    padding-left: 3.5rem;
+    padding-right: 0;
+    text-align: left;
+  }
+}
+
+.timeline-dot {
+  position: absolute;
+  left: 50%;
+  top: 2rem;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 3px solid var(--cream-dark);
+  z-index: 2;
+  transition: transform 0.3s;
+}
+
+.timeline-item:hover .timeline-dot {
+  transform: translateX(-50%) scale(1.3);
+}
+
+@media (max-width: 768px) {
+  .timeline-dot {
+    left: 1.5rem;
+  }
+}
+
+.timeline-content {
+  flex: 1;
+}
+
+.timeline-date {
+  font-family: var(--font-gothic);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  margin-bottom: 0.3rem;
+}
+
+.timeline-title {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--earth-dark);
+  margin-bottom: 0.4rem;
+}
+
+.timeline-desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* ============================================
+   Video Section
+   ============================================ */
+.video-section {
+  padding: 5rem 2rem;
+  background: var(--earth-dark);
+  color: var(--cream);
+}
+
+.video-section .section-label,
+.video-section .section-title {
+  text-align: center;
+}
+
+.video-section .section-title {
+  color: var(--cream);
+}
+
+.video-container {
+  max-width: 800px;
+  margin: 2rem auto 0;
+  aspect-ratio: 16 / 9;
+  background: var(--earth-mid);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(200, 163, 95, 0.15);
+}
+
+/* <!-- VIDEO_PLACEHOLDER: YouTubeの埋め込みiframeに差し替えてください -->
+   <!-- 例: <iframe src="https://www.youtube.com/embed/VIDEO_ID" ...></iframe> --> */
+
+.video-placeholder {
+  text-align: center;
+  color: var(--gold-pale);
+  opacity: 0.5;
+}
+
+.video-placeholder .play-icon {
+  width: 60px;
+  height: 60px;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+}
+
+.video-placeholder .play-icon::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 10px 0 10px 18px;
+  border-color: transparent transparent transparent var(--gold);
+  margin-left: 4px;
+}
+
+.video-placeholder p {
+  font-family: var(--font-gothic);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+}
+
+/* ============================================
+   Photo Gallery
+   ============================================ */
+.gallery {
+  padding: 6rem 2rem;
+  background: var(--cream);
+}
+
+.gallery .section-label,
+.gallery .section-title {
+  text-align: center;
+}
+
+.gallery-grid {
+  max-width: 1000px;
+  margin: 2rem auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 600px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+.gallery-item {
+  aspect-ratio: 1;
+  background: var(--cream-dark);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s;
+}
+
+.gallery-item:hover {
+  transform: scale(1.02);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery-item:nth-child(1) {
+  grid-column: span 2;
+  grid-row: span 2;
+  aspect-ratio: 1;
+}
+
+/* ============================================
+   Links Section
+   ============================================ */
+.links {
+  padding: 5rem 2rem;
+  background: linear-gradient(180deg, var(--cream) 0%, var(--cream-dark) 100%);
+}
+
+.links-inner {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.links .section-label,
+.links .section-title {
+  text-align: center;
+}
+
+.link-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.link-item {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1.2rem 1.5rem;
+  background: #fff;
+  border-radius: 6px;
+  border: 1px solid var(--cream-dark);
+  transition: all 0.3s;
+  text-decoration: none;
+  color: var(--text-primary);
+}
+
+.link-item:hover {
+  border-color: var(--gold);
+  box-shadow: 0 4px 15px rgba(200, 163, 95, 0.15);
+  transform: translateX(4px);
+  color: var(--text-primary);
+}
+
+.link-icon {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--earth-dark);
+  color: var(--gold);
+  font-family: var(--font-serif);
+  font-weight: 900;
+  font-size: 1rem;
+}
+
+.link-text {
+  flex: 1;
+}
+
+.link-text h4 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 0.15rem;
+}
+
+.link-text p {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.link-arrow {
+  font-size: 1.2rem;
+  color: var(--gold);
+  transition: transform 0.3s;
+}
+
+.link-item:hover .link-arrow {
+  transform: translateX(4px);
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+.footer {
+  padding: 3rem 2rem;
+  background: var(--earth-dark);
+  text-align: center;
+  color: var(--cream);
+}
+
+.footer-logo {
+  font-family: var(--font-serif);
+  font-weight: 900;
+  font-size: 1.5rem;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+
+.footer-name {
+  font-family: var(--font-gothic);
+  font-size: 0.8rem;
+  color: var(--gold-pale);
+  opacity: 0.6;
+  margin-bottom: 1rem;
+  letter-spacing: 0.1em;
+}
+
+.footer-copy {
+  font-size: 0.7rem;
+  opacity: 0.3;
+  letter-spacing: 0.05em;
+}
+
+/* ============================================
+   Counter Animation
+   ============================================ */
+.count-up {
+  display: inline-block;
+}
+
+/* ============================================
+   Responsive fine-tuning
+   ============================================ */
+@media (max-width: 768px) {
+  .hero-content { padding: 1.5rem; }
+  .thanks { padding: 4rem 1.5rem; }
+  .results { padding: 4rem 1.5rem; }
+  .donation { padding: 4rem 1.5rem; }
+  .timeline-section { padding: 4rem 1.5rem; }
+  .video-section { padding: 4rem 1.5rem; }
+  .gallery { padding: 4rem 1.5rem; }
+  .links { padding: 4rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================
+     Navigation
+     ============================================ -->
+<nav class="nav" id="nav">
+  <div class="nav-logo">不良米</div>
+  <ul class="nav-links">
+    <li><a href="#thanks">感謝</a></li>
+    <li><a href="#results">達成結果</a></li>
+    <li><a href="#donation">寄贈報告</a></li>
+    <li><a href="#timeline">活動の軌跡</a></li>
+    <li><a href="#links">リンク</a></li>
+  </ul>
+</nav>
+
+<!-- ============================================
+     Hero Section
+     ============================================ -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-stalks" aria-hidden="true">
+    <!-- Generated by JS -->
+  </div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">活動報告 ── 2025年度 第一期</p>
+    <h1 class="hero-title"><span class="accent">不良米</span>プロジェクト</h1>
+    <p class="hero-subtitle">
+      元非行少年が作った米を、<br>
+      再出発する若者たちの食卓へ。
+    </p>
+    <p class="hero-tagline"><span>やらない善よりやる偽善</span></p>
+  </div>
+  <div class="hero-scroll">
+    <span>SCROLL</span>
+    <div class="line"></div>
+  </div>
+</section>
+
+<!-- ============================================
+     Thank You Message
+     ============================================ -->
+<section class="thanks" id="thanks">
+  <div class="thanks-inner fade-in">
+    <div class="thanks-deco">穂</div>
+    <p class="thanks-message">
+      このプロジェクトを支えてくださった<br>
+      <strong>38名の支援者の皆さま</strong>へ。<br><br>
+      皆さまのおかげで、元非行少年たちと一緒に作った米は<br>
+      社会で奮闘する若者や、困窮世帯の食卓へ届きました。<br><br>
+      種を蒔き、苗を育て、泥にまみれ、稲を刈り──<br>
+      その一粒一粒に、<strong>再出発への願い</strong>が込められています。<br><br>
+      支えてくださったこと、心から感謝いたします。
+    </p>
+    <p class="thanks-sign">へいなか（安部 顕）</p>
+  </div>
+</section>
+
+<!-- ============================================
+     Crowdfunding Results
+     ============================================ -->
+<section class="results" id="results">
+  <div class="results-inner">
+    <p class="section-label fade-in">Crowdfunding Result</p>
+    <h2 class="section-title fade-in">クラウドファンディング達成結果</h2>
+    <div class="results-grid">
+      <div class="result-card fade-in">
+        <div class="result-number"><span class="count-up" data-target="407">0</span><span class="result-unit">%</span></div>
+        <div class="result-label">達成率</div>
+      </div>
+      <div class="result-card fade-in">
+        <div class="result-number">¥<span class="count-up" data-target="101800" data-separator="true">0</span></div>
+        <div class="result-label">支援総額</div>
+      </div>
+      <div class="result-card fade-in">
+        <div class="result-number"><span class="count-up" data-target="38">0</span><span class="result-unit">人</span></div>
+        <div class="result-label">支援者数</div>
+      </div>
+    </div>
+    <p class="result-note fade-in">
+      目標 ¥25,000 に対し、初日に目標達成。<br>最終的に目標の4倍を超えるご支援をいただきました。
+    </p>
+  </div>
+</section>
+
+<!-- ============================================
+     Donation Report
+     ============================================ -->
+<section class="donation" id="donation">
+  <div class="donation-inner">
+    <p class="section-label fade-in">Donation Report</p>
+    <h2 class="section-title fade-in">寄贈報告</h2>
+    <div class="donation-cards">
+      <div class="donation-card fade-in-left">
+        <h3>育て上げネット</h3>
+        <div class="donation-amount">不良米 15kg</div>
+        <div class="donation-target">▶ 少年院を出て社会で奮闘する若者へ</div>
+        <p class="donation-desc">
+          若者支援を行う認定NPO法人。就労支援や少年院への学習支援、出院後の食料支援などを実施しています。
+        </p>
+      </div>
+      <div class="donation-card fade-in-right">
+        <h3>ami seed</h3>
+        <div class="donation-amount">不良米 10kg ＋ 追加購入分 20kg（計30kg）</div>
+        <div class="donation-target">▶ 困窮世帯へ</div>
+        <p class="donation-desc">
+          茨城県阿見町を拠点に活動するボランティア団体。フードドライブやこども食堂、居場所づくりなどを実施しています。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     Timeline
+     ============================================ -->
+<section class="timeline-section" id="timeline">
+  <p class="section-label fade-in">Activity Timeline</p>
+  <h2 class="section-title fade-in">活動の軌跡</h2>
+  <div class="timeline">
+    <div class="timeline-item fade-in">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <div class="timeline-date">2025.04.10</div>
+        <div class="timeline-title">種植え</div>
+        <p class="timeline-desc">地域おこし協力隊のつながりで農家さんと出会い、記念すべき第一歩を踏み出した。</p>
+      </div>
+    </div>
+    <div class="timeline-item fade-in">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <div class="timeline-date">2025.04.12</div>
+        <div class="timeline-title">苗ならべ</div>
+        <p class="timeline-desc">苗箱をハウスに並べる作業。小さな苗に、大きな期待を込めて。</p>
+      </div>
+    </div>
+    <div class="timeline-item fade-in">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <div class="timeline-date">2025.05.25</div>
+        <div class="timeline-title">田植え</div>
+        <p class="timeline-desc">メンバー総出で実施。泥だらけになりながら一本一本丁寧に植えた。</p>
+      </div>
+    </div>
+    <div class="timeline-item fade-in">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <div class="timeline-date">2025.06 - 08</div>
+        <div class="timeline-title">草刈り・水管理</div>
+        <p class="timeline-desc">早朝作業や週末作業を重ね、稲の成長を見守る日々。</p>
+      </div>
+    </div>
+    <div class="timeline-item fade-in">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <div class="timeline-date">2025.09.13</div>
+        <div class="timeline-title">稲刈り</div>
+        <p class="timeline-desc">黄金色に実った稲穂を収穫。汗と想いが詰まった瞬間。</p>
+      </div>
+    </div>
+    <div class="timeline-item fade-in">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <div class="timeline-date">2025.09.28</div>
+        <div class="timeline-title">脱穀</div>
+        <p class="timeline-desc">2週間の天日干しを経て脱穀。期待以上の収穫量だった。</p>
+      </div>
+    </div>
+    <div class="timeline-item fade-in">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <div class="timeline-date">2025.10.21</div>
+        <div class="timeline-title">初精米・実食</div>
+        <p class="timeline-desc">第一期不良米の完成。仲間と味わう、格別の一杯。</p>
+      </div>
+    </div>
+    <div class="timeline-item fade-in">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <div class="timeline-date">2025.12</div>
+        <div class="timeline-title">寄贈完了</div>
+        <p class="timeline-desc">育て上げネット・ami seedへ届け完了。不良米が、誰かの食卓へ届いた。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     Video Section
+     ============================================ -->
+<section class="video-section" id="video">
+  <p class="section-label fade-in">Movie</p>
+  <h2 class="section-title fade-in">活動の記録</h2>
+  <div class="video-container fade-in">
+    <!-- VIDEO_PLACEHOLDER: 以下を YouTube 埋め込みコードに差し替えてください -->
+    <!-- 例:
+    <iframe
+      width="100%"
+      height="100%"
+      src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+      title="不良米プロジェクト"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+      style="position:absolute; inset:0; width:100%; height:100%;">
+    </iframe>
+    -->
+    <div class="video-placeholder">
+      <div class="play-icon"></div>
+      <p>動画は後日公開予定</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     Photo Gallery
+     ============================================ -->
+<section class="gallery" id="gallery">
+  <p class="section-label fade-in">Photo Gallery</p>
+  <h2 class="section-title fade-in">ギャラリー</h2>
+  <div class="gallery-grid">
+    <!-- images/ フォルダに画像を配置してください -->
+    <div class="gallery-item fade-in">
+      <img src="images/top.jpg" alt="不良米プロジェクト メインビジュアル">
+    </div>
+    <div class="gallery-item fade-in">
+      <img src="images/touchaku.jpg" alt="育て上げネットへ不良米を届けた様子">
+    </div>
+    <div class="gallery-item fade-in">
+      <img src="images/uchiage.jpg" alt="打ち上げの食事">
+    </div>
+    <div class="gallery-item fade-in">
+      <img src="images/amiseed.jpg" alt="ami seedへの寄贈">
+    </div>
+    <div class="gallery-item fade-in">
+      <img src="images/tsuika.jpg" alt="プロジェクトメンバー">
+    </div>
+    <div class="gallery-item fade-in">
+      <img src="images/member.jpg" alt="メンバーでの打ち上げ">
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     Links
+     ============================================ -->
+<section class="links" id="links">
+  <div class="links-inner">
+    <p class="section-label fade-in">Links</p>
+    <h2 class="section-title fade-in">関連リンク</h2>
+    <div class="link-list">
+      <a href="https://note.com/heino_naka/m/m472211820539" target="_blank" rel="noopener" class="link-item fade-in">
+        <div class="link-icon">N</div>
+        <div class="link-text">
+          <h4>noteマガジン</h4>
+          <p>活動の詳細記録をまとめています</p>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+      <a href="https://www.instagram.com/furyou.mai/" target="_blank" rel="noopener" class="link-item fade-in">
+        <div class="link-icon">IG</div>
+        <div class="link-text">
+          <h4>Instagram</h4>
+          <p>活動の様子を写真で発信中</p>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+      <a href="https://for-good.net/project/1002921" target="_blank" rel="noopener" class="link-item fade-in">
+        <div class="link-icon">CF</div>
+        <div class="link-text">
+          <h4>クラウドファンディングページ</h4>
+          <p>For Good ─ 達成率407%で終了</p>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     Footer
+     ============================================ -->
+<footer class="footer">
+  <div class="footer-logo">不良米</div>
+  <div class="footer-name">不良米プロジェクト｜へいなか（安部 顕）</div>
+  <div class="footer-copy">&copy; 2025 不良米プロジェクト</div>
+</footer>
+
+<!-- ============================================
+     JavaScript
+     ============================================ -->
+<script>
+(function() {
+  'use strict';
+
+  // --- Navigation scroll effect ---
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // --- Generate rice stalks ---
+  const stalksContainer = document.querySelector('.hero-stalks');
+  if (stalksContainer) {
+    for (let i = 0; i < 40; i++) {
+      const stalk = document.createElement('div');
+      stalk.className = 'stalk';
+      stalk.style.left = (Math.random() * 100) + '%';
+      stalk.style.height = (60 + Math.random() * 100) + 'px';
+      stalk.style.animationDelay = (Math.random() * 3) + 's';
+      stalk.style.animationDuration = (3 + Math.random() * 3) + 's';
+      stalksContainer.appendChild(stalk);
+    }
+  }
+
+  // --- Intersection Observer for fade-in ---
+  const observerOptions = {
+    threshold: 0.15,
+    rootMargin: '0px 0px -40px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        // Stagger sibling animations
+        const siblings = entry.target.parentElement.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right');
+        let delay = 0;
+        siblings.forEach((sib) => {
+          if (sib === entry.target) {
+            entry.target.style.transitionDelay = delay + 'ms';
+          }
+        });
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 50);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .result-card').forEach((el, i) => {
+    observer.observe(el);
+  });
+
+  // --- Count-up animation ---
+  const countObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.dataset.target);
+        const useSeparator = el.dataset.separator === 'true';
+        const duration = 2000;
+        const startTime = performance.now();
+
+        function easeOutCubic(t) {
+          return 1 - Math.pow(1 - t, 3);
+        }
+
+        function update(currentTime) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const easedProgress = easeOutCubic(progress);
+          const current = Math.floor(easedProgress * target);
+
+          if (useSeparator) {
+            el.textContent = current.toLocaleString();
+          } else {
+            el.textContent = current;
+          }
+
+          if (progress < 1) {
+            requestAnimationFrame(update);
+          }
+        }
+
+        requestAnimationFrame(update);
+        countObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.count-up').forEach(el => {
+    countObserver.observe(el);
+  });
+
+  // --- Smooth scroll for nav links ---
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
