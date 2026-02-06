@@ -260,7 +260,8 @@ body::after {
   z-index: 2;
   text-align: center;
   padding: 2rem;
-  max-width: 800px;
+  width: 100%;
+  max-width: 900px;
 }
 
 .hero-eyebrow {
@@ -276,12 +277,15 @@ body::after {
 .hero-title {
   font-family: var(--font-serif);
   font-weight: 900;
-  font-size: clamp(2.2rem, 8.5vw, 7rem);
+  font-size: clamp(2rem, 8vw, 7rem);
   color: var(--cream);
   line-height: 1.1;
   letter-spacing: 0.05em;
   margin-bottom: 0.3em;
   white-space: nowrap;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
   opacity: 0;
   animation: fadeUp 1s 0.5s forwards;
 }
@@ -384,10 +388,28 @@ body::after {
 
 .thanks-message {
   font-family: var(--font-serif);
-  font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+  font-size: clamp(0.95rem, 2.5vw, 1.35rem);
   font-weight: 500;
   line-height: 2.2;
   color: var(--earth-mid);
+}
+
+.thanks-message br.desktop {
+  display: inline;
+}
+
+@media (max-width: 600px) {
+  .thanks-message br.desktop {
+    display: none;
+  }
+  .thanks-message {
+    line-height: 2;
+    text-align: left;
+    padding: 0 0.5rem;
+  }
+  .thanks-sign {
+    text-align: right;
+  }
 }
 
 .thanks-message strong {
@@ -749,38 +771,85 @@ body::after {
 /* <!-- VIDEO_PLACEHOLDER: YouTubeの埋め込みiframeに差し替えてください -->
    <!-- 例: <iframe src="https://www.youtube.com/embed/VIDEO_ID" ...></iframe> --> */
 
-.video-placeholder {
-  text-align: center;
-  color: var(--gold-pale);
-  opacity: 0.5;
+/* Note Article Callout */
+.note-article {
+  max-width: 800px;
+  margin: 3rem auto 0;
 }
 
-.video-placeholder .play-icon {
-  width: 60px;
-  height: 60px;
-  border: 2px solid var(--gold);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1rem;
+.note-article-inner {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(200, 163, 95, 0.2);
+  border-radius: 6px;
+  padding: 2rem 2.5rem;
+  transition: border-color 0.3s;
 }
 
-.video-placeholder .play-icon::after {
-  content: '';
-  display: block;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 10px 0 10px 18px;
-  border-color: transparent transparent transparent var(--gold);
-  margin-left: 4px;
+.note-article-inner:hover {
+  border-color: rgba(200, 163, 95, 0.45);
 }
 
-.video-placeholder p {
+.note-article-badge {
   font-family: var(--font-gothic);
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   letter-spacing: 0.1em;
+  color: var(--gold);
+  background: rgba(200, 163, 95, 0.12);
+  display: inline-block;
+  padding: 0.25rem 0.8rem;
+  border-radius: 3px;
+  margin-bottom: 0.8rem;
+}
+
+.note-article-title {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  color: var(--cream);
+  line-height: 1.6;
+  margin-bottom: 0.6rem;
+}
+
+.note-article-desc {
+  font-size: 0.88rem;
+  color: var(--gold-pale);
+  opacity: 0.7;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.note-article-link {
+  font-family: var(--font-gothic);
+  font-size: 0.85rem;
+  color: var(--gold);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  transition: color 0.3s;
+}
+
+.note-article-link:hover {
+  color: var(--gold-light);
+}
+
+/* Bonus Video */
+.bonus-video {
+  max-width: 800px;
+  margin: 3rem auto 0;
+}
+
+.bonus-video-label {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  color: var(--gold-pale);
+  text-align: center;
+  margin-bottom: 1.2rem;
+  opacity: 0.7;
+}
+
+@media (max-width: 600px) {
+  .note-article-inner {
+    padding: 1.5rem;
+  }
 }
 
 /* ============================================
@@ -1048,6 +1117,7 @@ body::after {
     <li><a href="#results">達成結果</a></li>
     <li><a href="#donation">寄贈報告</a></li>
     <li><a href="#timeline">活動の軌跡</a></li>
+    <li><a href="#video">御礼</a></li>
     <li><a href="#links">リンク</a></li>
   </ul>
 </nav>
@@ -1082,11 +1152,11 @@ body::after {
   <div class="thanks-inner fade-in">
     <div class="thanks-deco">穂</div>
     <p class="thanks-message">
-      このプロジェクトを支えてくださった<br>
+      このプロジェクトを支えてくださった<br class="desktop">
       <strong>38名の支援者の皆さま</strong>へ。<br><br>
-      皆さまのおかげで、元非行少年たちと一緒に作った米は<br>
+      皆さまのおかげで、元非行少年たちと一緒に作った米は<br class="desktop">
       社会で奮闘する若者や、困窮世帯の食卓へ届きました。<br><br>
-      種を蒔き、苗を育て、泥にまみれ、稲を刈り──<br>
+      種を蒔き、苗を育て、泥にまみれ、稲を刈り──<br class="desktop">
       その一粒一粒に、<strong>再出発への願い</strong>が込められています。<br><br>
       支えてくださったこと、心から感謝いたします。
     </p>
@@ -1232,28 +1302,48 @@ body::after {
 </section>
 
 <!-- ============================================
-     Video Section
+     御礼 Section
      ============================================ -->
 <section class="video-section" id="video">
   <p class="section-label fade-in">Movie</p>
-  <h2 class="section-title fade-in">活動の記録</h2>
+  <h2 class="section-title fade-in">御礼</h2>
   <div class="video-container fade-in">
-    <!-- VIDEO_PLACEHOLDER: 以下を YouTube 埋め込みコードに差し替えてください -->
-    <!-- 例:
     <iframe
       width="100%"
       height="100%"
-      src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+      src="https://www.youtube.com/embed/epDfV5F4a2k"
       title="不良米プロジェクト"
       frameborder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen
       style="position:absolute; inset:0; width:100%; height:100%;">
     </iframe>
-    -->
-    <div class="video-placeholder">
-      <div class="play-icon"></div>
-      <p>動画は後日公開予定</p>
+  </div>
+
+  <!-- 育て上げネット 工藤さん note記事 -->
+  <div class="note-article fade-in">
+    <div class="note-article-inner">
+      <div class="note-article-badge">育て上げネット 工藤さんの記事</div>
+      <h3 class="note-article-title">少年院を出た少年たちの応援にと、不良米が45kgも届きました。</h3>
+      <p class="note-article-desc">寄贈先の育て上げネット代表・工藤さんが、不良米を受け取った様子を記事にしてくださいました。</p>
+      <a href="https://note.com/kudokei/n/n8d28459434b9" target="_blank" rel="noopener" class="note-article-link">noteで記事を読む →</a>
+    </div>
+  </div>
+
+  <!-- おまけ動画 -->
+  <div class="bonus-video fade-in">
+    <p class="bonus-video-label">おまけ ── 脱穀の様子</p>
+    <div class="video-container">
+      <iframe
+        width="100%"
+        height="100%"
+        src="https://www.youtube.com/embed/b0m4IstLfCQ"
+        title="不良米プロジェクト 脱穀の様子"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        style="position:absolute; inset:0; width:100%; height:100%;">
+      </iframe>
     </div>
   </div>
 </section>
